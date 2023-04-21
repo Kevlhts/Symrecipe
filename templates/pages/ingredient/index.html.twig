@@ -1,16 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}HSymRecipe - Mes ingrédients{% endblock %}
+{% block title %}SymRecipe - Mes ingrédients{% endblock %}
 
     {% block body %}
         <div class="container mt-4">
-            <h1> Mes ingrédients </h1>
                 <div class="count mt-4">
+                    <h1> Mes ingrédients </h1>
+                    <!-- boucle: afficher nbre ingrédient-->
                     {% if not ingredients.items is same as ([]) %}
                         <small> Il y a {{ ingredients.getTotalItemCount }}
                             ingrédients au total</small>
                 </div>
+            <!-- lien création ingrédient-->
+            <a href="{{ path('ingredient.new') }}" class="btn btn-primary mt-4">
+                Créer un ingredient
+            </a>
 
+            <!-- message flash : l'ingrédient est en bdd-->
+            {% for message in app.flashes('success') %} <!-- aller voir sur bootstrap l'id qui est noté pour les messages d'alertes-->
+                <div class="alert-success mt-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <!--end message flash-->
+
+            <!-- Tableau ingredient -->
             <table class ="table table-hover mt-4">
                     <thead>
                     <tr>
@@ -18,8 +32,10 @@
                         <th scope="col">Nom</th>
                         <th scope="col">Prix</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Edition</th>
+                        <th scope="col">Suppression</th>
                     </tr>
-                    </thead>
+                    </thead>@
                     <tbody>
                     {% for ingredient in ingredients %}
                         <tr class="table-primary">
@@ -27,14 +43,23 @@
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.price }}</td>
                             <td>{{ ingredient.createdAt | date ('d/m/y') }}</td>
+                            <td>
+                                <a href="{{ path('ingredient.edit', { id: ingredient.id}) }}" class="btn btn-info">Modifier</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('ingredient.delete', { id: ingredient.id}) }}" class="btn btn-warning">Supprimer</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
+            <!-- pagination-->
             <div class="navigation d-flex justify-content-center mt-4 ">
                 {{ knp_pagination_render(ingredients) }}
             </div>
+
+            <!-- endfor message nbre ingrédient-->
             {% else %}
             <h4> il n'y a pas d'ingrédients </h4>
             {% endif%}
