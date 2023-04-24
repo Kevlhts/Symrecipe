@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Ingredient;
 use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -114,13 +113,6 @@ class IngredientController extends AbstractController
             Ingredient $ingredient,
             EntityManagerInterface $entityManager,
         ) : Response {
-
-        if(!$ingredient) {
-            $this->addFlash(
-                'success',
-                'l\'ingredient en question n\'a pas été trouvé ! '
-            );
-        }
 
         $entityManager->remove($ingredient);
         $entityManager->flush();
