@@ -109,6 +109,12 @@ class RecipeController extends AbstractController
             ]);
         }
 
+    /**`
+     * Delete recipe
+     * @param Recipe $recipe
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
         #[Route('/recipe/suppression/{id}/','recipe.delete', methods: ['GET'])]
         public function delete(
             Recipe $recipe,
