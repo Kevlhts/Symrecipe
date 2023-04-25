@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Ingredient;
+
 use App\Entity\Recipe;
-use App\Form\IngredientType;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
